@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+process.env.app = 'api';
+require('../initEnv');
+// var logger = new Logger('server');
+var app = Starters.api;
+
+var server = app.listen(app.get('port'), function () {
+  console.log('Express server listening on port ' + server.address().port);
+});
+
+if (global.gc) {
+  setInterval(function() {
+    // logger.info('Before gc: ', process.memoryUsage());
+    global.gc();
+    // logger.info('After gc: ', process.memoryUsage());
+  }, 2 * 60 * 1000);
+}
